@@ -6,14 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./recieve-vehicle.component.scss']
 })
 export class RecieveVehicleComponent {
-  mobileNoAutoFill!: boolean;
+  mobileNumber = '';
+  isLoading: any = {};
 
   onKeyDown(event: any) {
     // Allow only numeric input
     const isNumericInput = /^\d*$/.test(event.key);
     if (!isNumericInput) {
       event.preventDefault();
-    }
+    } 
   }
   
   onPaste(event: any) {
@@ -26,6 +27,13 @@ export class RecieveVehicleComponent {
     const input = event.target as HTMLInputElement;
     input.value = strippedData;
     event.preventDefault();
+  }
+
+  getCustomerDataByMobNo() {
+    if (this.mobileNumber.length > 9) {
+      this.isLoading.customerDataByMobNo = true;
+      console.log(this.mobileNumber);
+    }
   }
   
 }

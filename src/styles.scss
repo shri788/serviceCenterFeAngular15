@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 $btnWidth: 200px;
+$btnContentColor: rgba(195, 209, 226, 0.8);
 .avatarImg {
     border-radius: 50%;
     height: 40px;
@@ -48,19 +50,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
   
   .dropdown:hover .dropdown-content {display: block;}
+  .dropdown:hover .arrow-up {display: block;}
   
   .dropdown:hover .dropbtn {
-    background-color: rgba(195, 209, 226, 0.3);
+    background-color: $btnContentColor;
     border-radius: 5px;
     text-align: left;
   }
 
+  .arrow-up {
+    position: relative;
+    width: 0;
+    height: 0;
+    //border-left: 5px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $btnContentColor;
+    display: none;
+  }
+
   .dropdown-btn {
     width: $btnWidth;
+    font-size: 16px;
     // align-items: start;
     // align-content: flex-start;
     // text-align: left;
   }
   // for dropdown button topbar ends
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

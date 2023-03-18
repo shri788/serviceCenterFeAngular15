@@ -1,3 +1,4 @@
+<app-srk-loader *ngIf="isLoading.customerDataByMobNo"></app-srk-loader>
 <mat-card>
     <mat-card-content>
         <h1><u>SERVICE PORTAL:-</u></h1>
@@ -5,7 +6,8 @@
             <div fxFlex.gt-sm="50" fxFlex="100">
                 <mat-form-field appearance="fill">
                     <mat-label>Mobile Number:</mat-label>
-                    <input matInput (keydown)="onKeyDown($event)" (paste)="onPaste($event)">
+                    <input matInput (keydown)="onKeyDown($event)" (paste)="onPaste($event)"
+                    [(ngModel)]="mobileNumber" (input)="this.getCustomerDataByMobNo()">
                 </mat-form-field>
             </div>
         </div>

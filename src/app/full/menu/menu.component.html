@@ -1,5 +1,6 @@
 <div class="dropdown">
     <button mat-button class="dropbtn"><mat-icon>{{headingIcon}}</mat-icon> {{heading}}</button>
+    <span class="arrow-up"></span>
     <div class="dropdown-content">
         <a mat-button *ngFor="let mm of menus"
         [routerLink]="mm.route">
@@ -10,4 +11,5 @@
             </div>
         </a>
     </div>
+    
   </div>
