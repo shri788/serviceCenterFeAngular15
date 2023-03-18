@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+$btnWidth: 200px;
+.avatarImg {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.main-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+// for dropdown button topbar starts
+.dropbtn {
+    background-color: rgb(187, 231, 229);
+    color: white;
+    font-size: 20px;
+    border: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #cde6d8;
+    min-width: $btnWidth;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    opacity: 0.7;
+    z-index: 1;
+    min-height: 48px;
+    align-items: start;
+    justify-content: flex-start;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {
+    background-color: rgba(195, 209, 226, 0.3);
+    border-radius: 5px;
+    text-align: left;
+  }
+
+  .dropdown-btn {
+    width: $btnWidth;
+    // align-items: start;
+    // align-content: flex-start;
+    // text-align: left;
+  }
+  // for dropdown button topbar ends
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

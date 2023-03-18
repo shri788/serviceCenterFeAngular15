@@ -1,0 +1,30 @@
+<div class="topbar">
+  <span class="app-heading">
+    Ram App |
+  </span>
+  
+  <span *ngIf="headingList.length > 0 && menuList.length > 0 && isMenusFound">
+    <app-menu *ngFor="let menu of headingList; let i = index;" [heading]="headingList[i].name"
+    [menus]="menuList[i]" [headingIcon]="headingList[i].icon"></app-menu>
+  </span>
+
+  <img [src]="logoImg" class="avatarImg" 
+  style="margin-right: 20px; float: right; cursor: pointer;"
+  [matMenuTriggerFor]="menu">
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>   
+</div>
+
