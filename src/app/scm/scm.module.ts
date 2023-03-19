@@ -11,6 +11,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {TextFieldModule} from '@angular/cdk/text-field'; 
 import { MatInputModule } from '@angular/material/input';
 import { SrkLoaderComponent } from './srk-loader/srk-loader.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomerService } from './services/customer.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { SrkLoaderComponent } from './srk-loader/srk-loader.component';
     FlexLayoutModule,
     MatFormFieldModule,
     TextFieldModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    HttpClientModule
+  ],
+  providers: [CustomerService]
 })
 export class ScmModule { }

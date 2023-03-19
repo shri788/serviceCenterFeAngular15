@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-recieve-vehicle',
@@ -8,6 +9,10 @@ import { Component } from '@angular/core';
 export class RecieveVehicleComponent {
   mobileNumber = '';
   isLoading: any = {};
+
+  constructor(
+    private customerService: CustomerService
+  ) {}
 
   onKeyDown(event: any) {
     // Allow only numeric input
@@ -33,6 +38,9 @@ export class RecieveVehicleComponent {
     if (this.mobileNumber.length > 9) {
       this.isLoading.customerDataByMobNo = true;
       console.log(this.mobileNumber);
+      this.customerService.getCustomerByMobileNo(parseInt(this.mobileNumber)).subscribe(res => {
+        console.log(res);
+      })
     }
   }
   
