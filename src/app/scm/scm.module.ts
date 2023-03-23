@@ -12,7 +12,10 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { SrkLoaderComponent } from './srk-loader/srk-loader.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSelectModule} from '@angular/material/select';
 import { CustomerService } from './services/customer.service';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { CustomerService } from './services/customer.service';
     MatFormFieldModule,
     TextFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [CustomerService]
 })

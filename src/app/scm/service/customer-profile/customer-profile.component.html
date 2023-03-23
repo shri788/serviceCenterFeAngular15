@@ -1,1 +1,71 @@
-<p>customer-profile works!</p>
+<form [formGroup]="customerProfileForm">
+    <div fxLayout="row" fxLayoutGap="10px">
+        <div fxFlex.gt-sm="33" fxFlex="100">
+            <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option value="M">MALE</mat-option>
+                    <mat-option value="F">FEMALE</mat-option>
+                    <mat-option value="T">TRANS</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="34" fxFlex="100">
+            <mat-form-field>
+                <mat-label>customer Name</mat-label>
+                <input matInput formControlName="customerName">
+            </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="33" fxFlex="100">
+            <mat-form-field>
+                <mat-label>Mobile Number</mat-label>
+                <input matInput formControlName="mobileNumber">
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+        <div fxFlex.gt-sm="33" fxFlex="100">
+            <mat-form-field>
+                <mat-label>Email ID</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="34" fxFlex="100">
+            <mat-form-field>
+                <mat-label>Date Of Birth</mat-label>
+                <input matInput formControlName="dob" [matDatepicker]="dob" readonly
+                (click)="dob.open()">
+                <mat-datepicker-toggle [for]="dob" matIconSuffix></mat-datepicker-toggle>
+                <mat-datepicker #dob></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="33" fxFlex="100">
+            <mat-form-field>
+                <mat-label>Date Of Marriage</mat-label>
+                <input matInput formControlName="dom" [matDatepicker]="dom" readonly
+                (click)="dom.open()">
+                <mat-datepicker-toggle [for]="dom" matIconSuffix></mat-datepicker-toggle>
+                <mat-datepicker #dom></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+        <div fxFlex.gt-sm="67" fxFlex="100">
+            <mat-form-field>
+                <mat-label>Customer Address</mat-label>
+                <textarea matInput formControlName="address"></textarea>
+            </mat-form-field>
+        </div>
+        <div fxFlex.gt-sm="33" fxFlex="100">
+            <mat-form-field>
+                <mat-label>PIN Code</mat-label>
+                <input matInput formControlName="addressPinCode">
+            </mat-form-field>
+        </div>
+    </div>
+    <span *ngIf="customerProfile !== undefined">
+        kk
+        {{customerProfile.dob}}
+    </span>
+    
+</form>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServiceDTO } from '../../models/ServiceDTO.model';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { CustomerService } from '../../services/customer.service';
 export class RecieveVehicleComponent {
   mobileNumber = '';
   isLoading: any = {};
+  serviceDTO!: ServiceDTO;
 
   constructor(
     private customerService: CustomerService
@@ -17,7 +19,7 @@ export class RecieveVehicleComponent {
   onKeyDown(event: any) {
     // Allow only numeric input
     const isNumericInput = /^\d*$/.test(event.key);
-    if (!isNumericInput) {
+    if (!isNumericInput && event.key !== "Backspace") {
       event.preventDefault();
     } 
   }
@@ -37,8 +39,9 @@ export class RecieveVehicleComponent {
   getCustomerDataByMobNo() {
     if (this.mobileNumber.length > 9) {
       this.isLoading.customerDataByMobNo = true;
-      console.log(this.mobileNumber);
       this.customerService.getCustomerByMobileNo(parseInt(this.mobileNumber)).subscribe(res => {
+        this.serviceDTO = res;
+        this.isLoading.customerDataByMobNo = false;
         console.log(res);
       })
     }
