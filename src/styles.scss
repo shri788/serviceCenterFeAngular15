@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-$btnWidth: 200px;
+$btnWidth: 230px;
 $btnContentColor: rgba(195, 209, 226, 0.8);
 .avatarImg {
     border-radius: 50%;
@@ -13,7 +13,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     top: 0;
     bottom: 0;
     left: 0;

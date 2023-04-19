@@ -1,7 +1,7 @@
 <app-srk-loader *ngIf="isLoading.customerDataByMobNo"></app-srk-loader>
 <mat-card>
     <mat-card-content>
-        <h1><u>SERVICE PORTAL:-</u></h1>
+        <h1><u>VEHICLE SERVICE PORTAL:-</u></h1>
         <div fxLayout="row" fxLayoutGap="10px">
             <div fxFlex.gt-sm="50" fxFlex="100">
                 <mat-form-field appearance="fill">
@@ -12,7 +12,17 @@
             </div>
         </div>
         <ng-container>
-            <app-customer-profile [serviceDTO]="serviceDTO"></app-customer-profile>
+            <app-customer-profile [serviceDTO]="serviceDTO" *ngIf="serviceDTO != undefined"></app-customer-profile>
         </ng-container>
+        <ng-container>
+            <app-vehicle-list [vehicles]="serviceDTO.vehicleDetails" *ngIf="serviceDTO != undefined"></app-vehicle-list>
+        </ng-container>
+
+        <br>
+        <div fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex.gt-sm="100" fxFlex="100">
+                <button mat-raised-button (click)="recieveVehicle()" color="primary">Recieve Vehicle</button>
+            </div>
+        </div>
     </mat-card-content>
 </mat-card>

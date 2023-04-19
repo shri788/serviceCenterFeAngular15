@@ -18,10 +18,10 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.buildForm();
   }
 
   ngOnChanges() {
+    this.buildForm();
     if (this.serviceDTO !== undefined) {
       this.customerProfile = this.serviceDTO.customerProfile;
       this.patchFormValue();

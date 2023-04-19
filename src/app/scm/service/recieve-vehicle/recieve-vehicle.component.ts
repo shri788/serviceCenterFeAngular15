@@ -40,11 +40,17 @@ export class RecieveVehicleComponent {
     if (this.mobileNumber.length > 9) {
       this.isLoading.customerDataByMobNo = true;
       this.customerService.getCustomerByMobileNo(parseInt(this.mobileNumber)).subscribe(res => {
-        this.serviceDTO = res;
+        if (res != null) {
+          this.serviceDTO = res;
+        }
         this.isLoading.customerDataByMobNo = false;
-        console.log(res);
+      }, error => {
+        this.isLoading.customerDataByMobNo = false;
       })
     }
   }
-  
+ 
+  recieveVehicle() {
+    console.log("gghf");
+  }
 }

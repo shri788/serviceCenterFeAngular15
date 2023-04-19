@@ -16,12 +16,17 @@ import {MatSelectModule} from '@angular/material/select';
 import { CustomerService } from './services/customer.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import {MatButtonModule} from '@angular/material/button';
+import { VehicleListComponent } from './service/vehicle-list/vehicle-list.component';
+import {MatTableModule} from '@angular/material/table'; 
+import {MatIconModule} from '@angular/material/icon'; 
 
 @NgModule({
   declarations: [
     RecieveVehicleComponent,
     CustomerProfileComponent,
-    SrkLoaderComponent
+    SrkLoaderComponent,
+    VehicleListComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +41,10 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     HttpClientModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatButtonModule,
+    MatTableModule,
+    MatIconModule
   ],
   providers: [CustomerService]
 })

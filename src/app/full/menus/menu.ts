@@ -13,7 +13,7 @@ export interface SubMenu {
 
 export const menus: Menu[] = [
     {name: 'Service Support', icon: 'list', submenu: [
-        {name: 'Recieve Vehicle', route: 'recieve-vehicle', icon: 'fa fa-taxi', parent: 'Service Support'},
+        {name: 'Add/ Recieve Vehicle', route: 'recieve-vehicle', icon: 'fa fa-taxi', parent: 'Service Support'},
         {name: 'Home 12', route: 'test', icon: 'fa fa-address-book-o', parent: 'Service Support'}
     ]},
     {name: 'Second', icon: 'list', submenu: [
