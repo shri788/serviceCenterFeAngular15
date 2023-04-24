@@ -1,4 +1,5 @@
-<app-srk-loader *ngIf="isLoading.customerDataByMobNo"></app-srk-loader>
+<app-srk-loader *ngIf="isLoading.customerDataByMobNo" 
+[label]="'Loading, Please wait....'"></app-srk-loader>
 <mat-card>
     <mat-card-content>
         <h1><u>VEHICLE SERVICE PORTAL:-</u></h1>
@@ -12,10 +13,13 @@
             </div>
         </div>
         <ng-container>
-            <app-customer-profile [serviceDTO]="serviceDTO" *ngIf="serviceDTO != undefined"></app-customer-profile>
+            <app-customer-profile [serviceDTO]="serviceDTO" *ngIf="serviceDTO != undefined"
+            [sendValue]="sendValueCustomer" (sendValueEvent)="getValuesCustomer($event)"
+            [mobNo]="mobileNumber"></app-customer-profile>
         </ng-container>
         <ng-container>
-            <app-vehicle-list [vehicles]="serviceDTO.vehicleDetails" *ngIf="serviceDTO != undefined"></app-vehicle-list>
+            <app-vehicle-list [vehicles]="serviceDTO.vehicleDetails" *ngIf="serviceDTO != undefined"
+            [sendValue]="sendValueVehicle" (sendValueEvent)="getValuesVehicle($event)"></app-vehicle-list>
         </ng-container>
 
         <br>

@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { VehicleListComponent } from './service/vehicle-list/vehicle-list.component';
 import {MatTableModule} from '@angular/material/table'; 
 import {MatIconModule} from '@angular/material/icon'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatMomentDateModule,
     MatButtonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [CustomerService]
 })

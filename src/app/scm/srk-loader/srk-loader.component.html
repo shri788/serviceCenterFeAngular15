@@ -1,3 +1,5 @@
-<div class="fullScreenLoader">
-    <img [src]="imgSrc" style="height: 100%; width: 100%;"/>
+<div fxLayout="column" fxLayoutAlign="center center" class="fullScreenLoader">
+    <mat-spinner [diameter]="100" color="accent" strokeWidth="5"></mat-spinner>
+    <span class="label">{{label}}</span>
 </div>
+<!-- <img [src]="imgSrc" style="height: 100%; width: 100%;"/> -->

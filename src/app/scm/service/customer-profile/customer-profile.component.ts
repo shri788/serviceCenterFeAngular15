@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerProfileModel } from '../../models/customer-profile.model';
 import { ServiceDTO } from '../../models/ServiceDTO.model';
+import Swal from 'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer-profile',
@@ -12,7 +14,9 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
   customerProfileForm!: FormGroup;
   @Input() serviceDTO!: ServiceDTO;
   customerProfile!: CustomerProfileModel;
-
+  @Input() sendValue = false;
+  @Output() sendValueEvent = new EventEmitter()
+  @Input() mobNo!: string;
   constructor(
     private fb: FormBuilder
   ) {}
@@ -21,10 +25,29 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    if (this.sendValue) {
+      if (!this.customerProfileForm.valid) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops... Error Occurred.',
+          text: 'Fill all the required fields !!',
+          footer: 'Please provide maximum customer related information.'
+        });
+        this.sendValueEvent.emit(false);
+        return;
+      } else {
+        this.sendValueEvent.emit(this.customerProfileForm.value);
+        return;
+      }
+    }
     this.buildForm();
     if (this.serviceDTO !== undefined) {
       this.customerProfile = this.serviceDTO.customerProfile;
-      this.patchFormValue();
+      if (this.customerProfile !== null) {
+        this.patchFormValue();
+      } else {
+        this.customerProfileForm.controls['mobileNumber'].patchValue(this.mobNo);
+      }
     }
   }
 
@@ -48,10 +71,10 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
       customerName: ['', [Validators.required]],
       mobileNumber: ['', [Validators.required]],
       email: ['', [Validators.email]],
-      dob: [''],
-      dom: [''],
-      address: ['', [Validators.minLength(20)]],
-      addressPinCode: ['', [Validators.minLength(6)]],
+      dob: [moment('0001-01-01')],
+      dom: [moment('0001-01-01')],
+      address: [''],
+      addressPinCode: [''],
     })
   }
 }

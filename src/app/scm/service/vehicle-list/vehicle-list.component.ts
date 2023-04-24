@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -11,6 +11,9 @@ export class VehicleListComponent implements OnChanges {
   @Input() vehicles: any;
   activeBtn: boolean[] = [];
   vehicleForm!: FormGroup;
+  @Input() sendValue = false;
+  @Output() sendValueEvent = new EventEmitter();
+  selectedVehicle!: any; 
 
   constructor(
     private fb: FormBuilder
@@ -28,14 +31,32 @@ export class VehicleListComponent implements OnChanges {
 
   
   ngOnChanges() {
+   if (this.vehicles === null) {
+    this.vehicles = [];
+   }
+   if (this.sendValue) {
+      if (this.selectedVehicle === undefined) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops... Error Occurred.',
+          text: 'Fill all the required fields !!',
+          footer: 'Please select vehicle from list or provide vehicle related details.'
+        });
+        this.sendValueEvent.emit(false);
+        return;
+      } else {
+        this.sendValueEvent.emit(this.selectedVehicle);
+        return;
+      }
+    }
     this.buildForm();
     // this.dataSource = new MatTableDataSource(this.vehicles);
   }
 
   onSelectVehicle(vehicle: any, i: number) {
-    console.log(vehicle);
     this.activeBtn = [];
     this.activeBtn[i] = true;
+    this.selectedVehicle = vehicle;
     if (i === -1) {
       this.vehicles[-1] = vehicle;
       this.vehicleForm.reset();
