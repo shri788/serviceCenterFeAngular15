@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerProfileModel } from '../../models/customer-profile.model';
 import { ServiceDTO } from '../../models/ServiceDTO.model';
 import Swal from 'sweetalert2';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer-profile',
@@ -17,11 +16,16 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
   @Input() sendValue = false;
   @Output() sendValueEvent = new EventEmitter()
   @Input() mobNo!: string;
+  isShowForm = true;
   constructor(
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+  }
+
+  onEdit() {
+    this.isShowForm = !this.isShowForm;
   }
 
   ngOnChanges() {
@@ -45,6 +49,7 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
       this.customerProfile = this.serviceDTO.customerProfile;
       if (this.customerProfile !== null) {
         this.patchFormValue();
+        this.isShowForm = false;
       } else {
         this.customerProfileForm.controls['mobileNumber'].patchValue(this.mobNo);
       }
@@ -70,11 +75,11 @@ export class CustomerProfileComponent implements OnInit, OnChanges {
       gender: ['', [Validators.required]],
       customerName: ['', [Validators.required]],
       mobileNumber: ['', [Validators.required]],
-      email: ['', [Validators.email]],
-      dob: [moment('0001-01-01')],
-      dom: [moment('0001-01-01')],
+      email: ['default@email.com', [Validators.email]],
+      dob: ['1970-01-01T00:00:00.000Z'],
+      dom: ['1970-01-01T00:00:00.000Z'],
       address: [''],
-      addressPinCode: [''],
+      addressPinCode: [0],
     })
   }
 }

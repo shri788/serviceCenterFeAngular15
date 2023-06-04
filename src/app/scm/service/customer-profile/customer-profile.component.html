@@ -1,4 +1,18 @@
-<form [formGroup]="customerProfileForm">
+<div *ngIf="customerProfile !== undefined && customerProfile !== null" class="customer">  
+    <div fxFlex.gt-sm="30" fxFlex="100">
+        {{customerProfile.customerName}}
+    </div>  
+    <div fxFlex.gt-sm="20" fxFlex="100">
+        {{customerProfile.mobileNumber}} 
+    </div>  
+    <div fxFlex.gt-sm="40" fxFlex="100">
+        {{customerProfile.address}} 
+    </div>  
+    <div fxFlex.gt-sm="10" fxFlex="100">
+        <mat-icon (click)="onEdit()" style="cursor: pointer;">edit</mat-icon>
+    </div>  
+</div>
+<form [formGroup]="customerProfileForm" *ngIf="isShowForm">
     <div fxLayout="row" fxLayoutGap="10px">
         <div fxFlex.gt-sm="33" fxFlex="100">
             <mat-form-field>

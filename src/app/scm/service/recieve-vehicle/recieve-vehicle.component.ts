@@ -105,6 +105,10 @@ export class RecieveVehicleComponent implements AfterViewChecked {
   }
 
   submitVehicle() {
+    console.log(this.serviceDTO.vehicleDetails);
+    console.log(this.vehicleData);
+    this.isLoading.customerDataByMobNo = true;
+    return;
     this.customerProfileData.customerId = (this.serviceDTO.customerProfile !== null) ? this.serviceDTO.customerProfile.customerId : 0;
     const delivery: VehicleServiceRecieveDelivery = {
       VehicleServiceRecieveDeliveryId: 0,
@@ -112,7 +116,7 @@ export class RecieveVehicleComponent implements AfterViewChecked {
     }
     this.vehicleData.customerId = (this.serviceDTO.customerProfile !== null) ? this.serviceDTO.customerProfile.customerId : 0;
     const vehSerDetails: VehicleServiceDetails = {
-      vehicleId: (this.serviceDTO.vehicleDetails !== null) ? this.serviceDTO.vehicleDetails.vehicleId : 0,
+      vehicleId: (this.vehicleData.vehicleId !== 0) ? this.vehicleData.vehicleId : 0,
       VehicleDetails: this.vehicleData,
       VehicleServiceRecieveDelivery: delivery,
       vehicleServiceDetailId: 0
@@ -123,13 +127,16 @@ export class RecieveVehicleComponent implements AfterViewChecked {
       console.log(res);
       if (res.action === 'success') {
         Swal.fire('Saved!', '', 'success');
+        this.isLoading.customerDataByMobNo = false;
       }
       if (res.action === 'error') {
         Swal.fire(`Error !`, `${res.message}`, 'error');
+        this.isLoading.customerDataByMobNo = false;
       }
     }, error => {
       const err = JSON.stringify(error.error.errors)
       Swal.fire(`Error !!!`, `${err}`, 'error');
+      this.isLoading.customerDataByMobNo = false;
     });
   }
 }
