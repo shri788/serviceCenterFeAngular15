@@ -17,11 +17,89 @@
             [sendValue]="sendValueCustomer" (sendValueEvent)="getValuesCustomer($event)"
             [mobNo]="mobileNumber"></app-customer-profile>
         </ng-container>
+        <hr *ngIf="serviceDTO != undefined"/>
         <ng-container>
             <app-vehicle-list [vehicles]="serviceDTO.vehicleDetails" *ngIf="serviceDTO != undefined"
-            [sendValue]="sendValueVehicle" (sendValueEvent)="getValuesVehicle($event)"></app-vehicle-list>
+            [sendValue]="sendValueVehicle" (sendValueEvent)="getValuesVehicle($event)"
+            (vehicleSelectedEvent)="vehicleSelectedEvent($event)"></app-vehicle-list>
         </ng-container>
-        
+        <hr *ngIf="serviceDTO != undefined"/>
+        <ng-container *ngIf="isVehicleSelected">
+            <h3><u>TASK TO BE PERFORMED LIST:-</u></h3>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <div fxFlex.gt-sm="40" fxFlex="100">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Select Tasks To Be Performed</mat-label>
+                                <mat-select multiple (selectionChange)="onAddServiceTask($event.value)">
+                                    <mat-option *ngFor="let task of taskMasterList" [value]="task"> 
+                                        {{task.taskName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="10px" *ngIf="isAddOtherTask">
+                        <div fxFlex.gt-sm="70" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Task Description</mat-label>
+                                <input matInput [formControl]="taskDescritionOther"
+                                oninput="this.value = this.value.toUpperCase()">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="20" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Task Amount</mat-label>
+                                <input matInput [formControl]="taskChargesOther"
+                                (keypress)="onKeyDown($event)">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="5" fxFlex="100">
+                            <mat-icon style="cursor: pointer; color: green;" 
+                            (click)="onAddOtherTask()" matTooltip="Click To Add Other Task">add</mat-icon>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex.gt-sm="60" fxFlex="100">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxFlex.gt-sm="25" fxFlex="100">
+                            Task Name
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100">
+                            Description
+                        </div>
+                        <div fxFlex.gt-sm="20" fxFlex="100">
+                            Charges
+                        </div>
+                        <div fxFlex.gt-sm="5" fxFlex="100">
+                            
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <div *ngFor="let task of selectedTasks">
+                                <div fxLayout="row" fxLayoutGap="10px" class="tasks">
+                                    <div fxFlex.gt-sm="25" fxFlex="100">
+                                        {{task.taskName}}
+                                    </div>
+                                    <div fxFlex.gt-sm="50" fxFlex="100">
+                                        {{task.taskDescription}}
+                                    </div>
+                                    <div fxFlex.gt-sm="20" fxFlex="100">
+                                        {{task.taskCharges}} Rs
+                                    </div>
+                                    <div fxFlex.gt-sm="5" fxFlex="100">
+                                        <mat-icon style="cursor: pointer; color: rgb(231, 98, 80);" 
+                                        (click)="onRemoveTask(task)" matTooltip="Click To Remove Task">remove</mat-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
         <br>
         <div fxLayout="row" fxLayoutGap="10px">
             <div fxFlex.gt-sm="100" fxFlex="100">

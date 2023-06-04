@@ -14,6 +14,8 @@ export class VehicleListComponent implements OnChanges {
   @Input() sendValue = false;
   @Output() sendValueEvent = new EventEmitter();
   selectedVehicle!: any; 
+  @Output() vehicleSelectedEvent = new EventEmitter();
+  isOtherVehicle = false;
 
   constructor(
     private fb: FormBuilder
@@ -27,6 +29,13 @@ export class VehicleListComponent implements OnChanges {
       vehicleType: ['', [Validators.required]],
       vehicleNumber: ['', [Validators.required]],
     })
+  }
+
+  onAddOtherVehicle() {
+    this.isOtherVehicle = !this.isOtherVehicle;
+    if (!this.isOtherVehicle) {
+      this.vehicleForm.reset(); 
+    }
   }
 
   
@@ -61,6 +70,7 @@ export class VehicleListComponent implements OnChanges {
       this.vehicles[-1] = vehicle;
       this.vehicleForm.reset();
     }
+    this.vehicleSelectedEvent.emit(this.selectedVehicle);
   }
 
   onlyAlphaNumeric(event: any) {

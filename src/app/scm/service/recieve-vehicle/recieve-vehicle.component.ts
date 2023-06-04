@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ServiceDTO } from '../../models/ServiceDTO.model';
 import { CustomerService } from '../../services/customer.service';
 import Swal from 'sweetalert2';
@@ -6,13 +6,15 @@ import { CustomerVehicleServiceDTO } from '../../models/vehicle-service-detail-d
 import { VehicleDetailsModel } from '../../models/vehicle-details.model';
 import { VehicleServiceRecieveDelivery } from '../../models/vehicle-service-delivery.model';
 import { VehicleServiceDetails } from '../../models/vehicle-service-details.model';
+import { TaskMasterModel } from '../../models/task-master';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-recieve-vehicle',
   templateUrl: './recieve-vehicle.component.html',
   styleUrls: ['./recieve-vehicle.component.scss']
 })
-export class RecieveVehicleComponent implements AfterViewChecked {
+export class RecieveVehicleComponent implements AfterViewChecked, OnInit {
   mobileNumber = '';
   isLoading: any = {};
   serviceDTO!: ServiceDTO;
@@ -20,14 +22,48 @@ export class RecieveVehicleComponent implements AfterViewChecked {
   sendValueVehicle = false;
   customerProfileData!: CustomerVehicleServiceDTO;
   vehicleData!: VehicleDetailsModel;
+  taskMasterList!: TaskMasterModel[];
+  selectedTasks: TaskMasterModel[] = [];
+  isAddOtherTask = false;
+  taskDescritionOther = new FormControl();
+  taskChargesOther = new FormControl();
+  isVehicleSelected = false;
 
   constructor(
     private customerService: CustomerService,
     private cd: ChangeDetectorRef
   ) {}
 
+    ngOnInit(): void {
+      // this.selectedTasks.patchValue([{taskName: ''}]);
+      this.getTaskMaster();
+    }
+
   ngAfterViewChecked(): void {
     this.cd.detectChanges();
+  }
+
+  onRemoveTask(task: TaskMasterModel) {
+    const obj = this.selectedTasks.filter((x: any) => x.taskName === task.taskName)[0];
+    const index = this.selectedTasks.indexOf(obj);
+    this.selectedTasks.splice(index, 1);
+  }
+
+  onAddOtherTask() {
+    const obj: TaskMasterModel = {
+      taskName: 'OHTER',
+      taskDescription: this.taskDescritionOther.value,
+      taskCharges: this.taskChargesOther.value
+    }
+    this.selectedTasks.push(obj);
+    this.taskChargesOther.reset();
+    this.taskDescritionOther.reset();
+  }
+
+  vehicleSelectedEvent(vehicle: VehicleDetailsModel) {
+    if (vehicle.vehicleNumber !== '') {
+      this.isVehicleSelected = true;
+    }
   }
 
   onKeyDown(event: any) {
@@ -36,6 +72,24 @@ export class RecieveVehicleComponent implements AfterViewChecked {
     if (!isNumericInput && event.key !== "Backspace") {
       event.preventDefault();
     } 
+  }
+
+  onAddServiceTask(tasks: TaskMasterModel[]) {
+    this.isAddOtherTask = tasks.some(x => x.taskName === 'OTHER');
+    console.log(tasks);
+    const diff = this.selectedTasks.filter((x: TaskMasterModel) => tasks.find(y => y.taskName !== x.taskName))[0];
+    console.log(diff);
+    // when element removed
+    if (this.selectedTasks.length > tasks.length) {
+      const obj = this.selectedTasks.filter((x: TaskMasterModel) => x.taskName === diff.taskName)[0];
+      const index = this.selectedTasks.indexOf(obj);
+      this.selectedTasks.splice(index, 1);
+    } else {
+      // when element added
+      const added  = tasks.filter(({ taskName: name1 }) => !this.selectedTasks.some(({ taskName: name2 }) => name2 === name1))[0];
+      console.log(added);
+      this.selectedTasks.push(added);
+    }
   }
   
   onPaste(event: any) {
@@ -62,6 +116,22 @@ export class RecieveVehicleComponent implements AfterViewChecked {
         this.isLoading.customerDataByMobNo = false;
       })
     }
+  }
+
+  getTaskMaster() {
+    this.isLoading.customerDataByMobNo = true;
+    this.customerService.getTaskMaster().subscribe(res => {
+      const otherObj: TaskMasterModel = {
+        taskName: 'OTHER',
+        taskDescription: '',
+        taskCharges: 0
+      };
+      res.push(otherObj);
+      this.taskMasterList = res;
+      this.isLoading.customerDataByMobNo = false;
+    }, error => {
+      this.isLoading.customerDataByMobNo = false;
+    })
   }
 
   getValuesCustomer(customer: any) {

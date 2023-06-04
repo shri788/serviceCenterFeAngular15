@@ -21,6 +21,7 @@ import { VehicleListComponent } from './service/vehicle-list/vehicle-list.compon
 import {MatTableModule} from '@angular/material/table'; 
 import {MatIconModule} from '@angular/material/icon'; 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatTableModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [CustomerService]
 })

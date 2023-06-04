@@ -5,6 +5,7 @@ import { environment } from 'src/app/environment/environment';
 import { ServiceDTO } from '../models/ServiceDTO.model';
 import { CustomerVehicleServiceDTO } from '../models/vehicle-service-detail-dto.model';
 import { GeneralResponse } from '../models/general-response.model';
+import { TaskMasterModel } from '../models/task-master';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class CustomerService {
 
   recieveVehicle(serviceItem: CustomerVehicleServiceDTO): Observable<GeneralResponse> {
     return this.http.post<GeneralResponse>(this.url + `/CustomerProfile/profileWithService`, serviceItem);
+  }
+
+  getTaskMaster(): Observable<TaskMasterModel[]> {
+    return this.http.get<TaskMasterModel[]>(this.url + `/CustomerProfile/getServiceTaskMaster`)
   }
 
   // recieveVehicle(service: ServiceDTO): Observable<general>

@@ -1,4 +1,9 @@
-<h2><u>VEHICLE LIST:-</u></h2>
+<h3><u>VEHICLE LIST:-</u> &nbsp;
+  <mat-icon style="cursor: pointer; color: green;" matTooltip="Click To Add Other Vehicle"
+  (click)="onAddOtherVehicle()">
+    add
+  </mat-icon>
+</h3>
 
 <span *ngFor="let vechile of vehicles; let i = index;">
   <button type="button" (click)="onSelectVehicle(vechile, i)" style="margin-bottom: 5px;"
@@ -21,34 +26,36 @@
     </span>
   </button>
 </span>
+<ng-container *ngIf="isOtherVehicle">
+  <h3><u>Add vehicle from below form if not available in above list.</u></h3>
 
-<h3><u>Add vehicle from below form if not available in above list.</u></h3>
-
-<div [formGroup]="vehicleForm" style="margin-top: 5px;">
-  <div fxLayout="row" fxLayoutGap="10px">
-    <div fxFlex.gt-sm="45" fxFlex="100">
-        <mat-form-field>
-            <mat-label>Vehicle Type</mat-label>
-            <mat-select formControlName="vehicleType">
-                <mat-option value="TWO WHEELER">TWO WHEELER</mat-option>
-                <mat-option value="THREE WHEELER">THREE WHEELER</mat-option>
-                <mat-option value="FOUR WHEELER">FOUR WHEELER</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div fxFlex.gt-sm="45" fxFlex="100">
-        <mat-form-field>
-            <mat-label>Vehicle Number</mat-label>
-            <input matInput formControlName="vehicleNumber" (keydown)="onlyAlphaNumeric($event)"
-            oninput="this.value = this.value.toUpperCase()" minlength="4">
-        </mat-form-field>
-    </div>
-    <div fxFlex.gt-sm="10" fxFlex="100">
-      <button matInput mat-raised-button color="primary" [class.selected]="activeBtn[-1]"
-      (click)="onSelectVehicle(vehicleForm.value, -1)" [disabled]="!vehicleForm.valid">Select</button>
+  <div [formGroup]="vehicleForm" style="margin-top: 5px;">
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div fxFlex.gt-sm="45" fxFlex="100">
+          <mat-form-field>
+              <mat-label>Vehicle Type</mat-label>
+              <mat-select formControlName="vehicleType">
+                  <mat-option value="TWO WHEELER">TWO WHEELER</mat-option>
+                  <mat-option value="THREE WHEELER">THREE WHEELER</mat-option>
+                  <mat-option value="FOUR WHEELER">FOUR WHEELER</mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="45" fxFlex="100">
+          <mat-form-field>
+              <mat-label>Vehicle Number</mat-label>
+              <input matInput formControlName="vehicleNumber" (keydown)="onlyAlphaNumeric($event)"
+              oninput="this.value = this.value.toUpperCase()" minlength="4">
+          </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="10" fxFlex="100">
+        <button matInput mat-raised-button color="primary" [class.selected]="activeBtn[-1]"
+        (click)="onSelectVehicle(vehicleForm.value, -1)" [disabled]="!vehicleForm.valid">Select</button>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+
 
 
 <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
